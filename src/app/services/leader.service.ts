@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
 import {Leader} from '../shared/leader';
 import { LEADERS } from '../shared/leaders';
-
+import { Observable,of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class LeaderService {
 
   constructor() { }
-  getLeaders(): Leader[] {
-    return LEADERS;
-
-
+  getLeaders(): Observable<Leader[]> {
+    return of(LEADERS).pipe(delay(2000));
   }
-  getLeader(id: string): Leader{
-    return LEADERS.filter((led) =>(led.id===id))[0];
-
+  
+  getLeader(id: String): Observable<Leader>{
+    return of(LEADERS.filter((led) =>(led.id===id))[0]).pipe(delay(2000));
   }
-  getFeaturedLeader():Leader{
-    return LEADERS.filter((led)=>led.featured)[0];
+  
+  getFeaturedLeader():Observable<Leader>{
+    return of(LEADERS.filter((led)=>led.featured)[0]).pipe(delay(2000));
+  } 
+   
+  
+    
 
-  }
+  
 }
